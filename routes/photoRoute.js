@@ -4,7 +4,9 @@ import { createPhoto, getAllPhotos } from '../controllers/photoController.js';
 
 const router = express.Router();
 
-router.route('/photo').post(createPhoto);
-router.route('/photo').get(getAllPhotos);
+router
+    .route('/photos')
+    .post(createPhoto)
+    .get(getAllPhotos);
 
 export default router;
