@@ -1,12 +1,15 @@
 import express from 'express';
 import dotenv from 'dotenv'
 import conn from './db.js';
+import router from './routes/pageRouter.js';
 
+// dotenv
 dotenv.config();
 
 // connection to db
 conn();
 
+// create app and port
 const app = express();
 const port = 3000;
 
@@ -17,17 +20,9 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 
 // get methods
-app.get('/', (req, res) => {
-    res.render('index')
-})
+app.use(router)
 
-app.get('/about', (req, res) => {
-    res.render('about')
-})
-
-
-
-
+// listening server
 app.listen(port, () => {
     console.log("Server created in " + port + " port");
 })
