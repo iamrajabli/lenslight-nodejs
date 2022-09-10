@@ -1,7 +1,8 @@
 import express from 'express';
 import dotenv from 'dotenv'
 import conn from './db.js';
-import router from './routes/pageRouter.js';
+import pageRouter from './routes/pageRoute.js';
+import photoRouter from './routes/photoRoute.js';
 
 // dotenv
 dotenv.config();
@@ -19,8 +20,12 @@ app.set('view engine', 'ejs');
 // static file middleware
 app.use(express.static('public'));
 
-// get methods
-app.use(router)
+// json middleware
+app.use(express.json());
+
+// methods
+app.use(pageRouter)
+app.use(photoRouter)
 
 // listening server
 app.listen(port, () => {
