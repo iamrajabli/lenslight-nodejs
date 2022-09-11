@@ -9,3 +9,7 @@ export const getAboutPage = (req, res) => {
 export const getRegisterPage = (req, res) => {
     res.render('register', { link: 'register' })
 }
+
+export const getLoginPage = (req, res) => {
+    res.render('login', { link: 'login' })
+}
