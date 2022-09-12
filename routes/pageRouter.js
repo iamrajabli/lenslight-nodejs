@@ -5,13 +5,12 @@ import {
     getRegisterPage,
     getLoginPage
 } from '../controllers/pageController.js';
-import { authenticateToken } from '../middlewares/authMiddleware.js';
 
 const router = express.Router();
 
 router
     .route('/')
-    .get(authenticateToken, getIndexPage)
+    .get(getIndexPage)
 
 router
     .route('/about')

@@ -42,21 +42,24 @@ export const loginUser = async (req, res) => {
                     message: 'Not found this username'
                 })
 
-        same ?
+        if (same) {
+            const token = createToken(user._id);
+            res.cookie('jwt', token, {
+                httpOnly: true,
+                maxAge: 1000 * 60 * 60 * 24
+            })
+
+
+            res.redirect('/users/dashboard');
+        } else {
             res
-                .status(200)
-                .json({
-                    success: true,
-                    user,
-                    message: 'You are logged in',
-                    token: createToken(user._id)
-                })
-            : res
                 .status(404)
                 .json({
                     success: false,
                     message: 'Username or pass incorrect'
                 })
+        }
+
 
 
 
@@ -76,4 +79,8 @@ const createToken = (userId) => {
     return jwt.sign({ userId }, process.env.JWT_SECRET, {
         expiresIn: '1d'
     })
+}
+
+export const getDashboardPage = (req, res) => {
+    res.render('dashboard')
 }

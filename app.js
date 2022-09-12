@@ -3,7 +3,8 @@ import dotenv from 'dotenv'
 import conn from './db.js';
 import pageRouter from './routes/pageRouter.js';
 import photoRouter from './routes/photoRouter.js';
-import userRouter from './routes/userRouter.js'
+import userRouter from './routes/userRouter.js';
+import cookieParser from 'cookie-parser';
 
 // dotenv
 dotenv.config();
@@ -24,6 +25,7 @@ app.use(express.static('public'));
 // json middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 // methods
 app.use(pageRouter)
