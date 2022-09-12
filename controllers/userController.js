@@ -82,5 +82,7 @@ const createToken = (userId) => {
 }
 
 export const getDashboardPage = (req, res) => {
-    res.render('dashboard')
+    res.render('dashboard', {
+        link: 'dashboard'
+    })
 }

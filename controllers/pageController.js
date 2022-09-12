@@ -13,3 +13,10 @@ export const getRegisterPage = (req, res) => {
 export const getLoginPage = (req, res) => {
     res.render('login', { link: 'login' })
 }
+
+export const getLogout = (req, res) => {
+    res.cookie('jwt', '', {
+        maxAge: 1,
+    });
+    res.redirect('/')
+}

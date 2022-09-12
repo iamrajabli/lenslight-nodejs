@@ -5,6 +5,7 @@ import pageRouter from './routes/pageRouter.js';
 import photoRouter from './routes/photoRouter.js';
 import userRouter from './routes/userRouter.js';
 import cookieParser from 'cookie-parser';
+import { checkUser } from './middlewares/authMiddleware.js';
 
 // dotenv
 dotenv.config();
@@ -27,7 +28,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-// methods
+// methods 
+app.get('*', checkUser)
 app.use(pageRouter)
 app.use(photoRouter)
 app.use(userRouter)

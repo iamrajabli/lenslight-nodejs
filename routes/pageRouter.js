@@ -3,7 +3,8 @@ import {
     getIndexPage,
     getAboutPage,
     getRegisterPage,
-    getLoginPage
+    getLoginPage,
+    getLogout
 } from '../controllers/pageController.js';
 
 const router = express.Router();
@@ -24,5 +25,8 @@ router
     .route('/login')
     .get(getLoginPage)
 
+router
+    .route('/logout')
+    .get(getLogout)
 
 export default router;
