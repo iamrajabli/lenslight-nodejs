@@ -6,21 +6,25 @@ export const createUser = async (req, res) => {
 
     try {
         const user = await User.create(req.body);
-        res
-            .status(201)
-            .json({
-                success: true,
-                user
-            })
+        res.status(201).json({ user: user.createdAt });
 
     } catch (error) {
-        res
-            .status(404)
-            .json({
-                success: false,
-                error
-            })
 
+        const errApi = {};
+
+        if (error.code == 11000) {
+            for (let key in error.keyPattern) {
+                errApi[key] = `This ${key.toUpperCase()} already registered`;
+            }
+        }
+
+        if (error.name == "ValidationError") {
+            for (let key in error.errors) {
+                errApi[key] = error.errors[key].message;
+            }
+        }
+
+        res.json(errApi)
     }
 }
 
