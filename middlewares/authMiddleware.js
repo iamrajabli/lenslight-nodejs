@@ -6,7 +6,7 @@ export const checkUser = async (req, res, next) => {
     if (token) {
         jwt.verify(token, process.env.JWT_SECRET, async (err, decodedToken) => {
             if (err) {
-                req.locals.user = null;
+                res.locals.user = null;
                 next();
             } else {
                 res.locals.user = await User.findById(decodedToken.userId);

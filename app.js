@@ -29,7 +29,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 // methods 
-app.get('*', checkUser)
+app.use(checkUser)
 app.use(pageRouter)
 app.use(photoRouter)
 app.use(userRouter)
