@@ -20,7 +20,6 @@ export const checkUser = async (req, res, next) => {
 
 }
 
-
 export const authenticateToken = async (req, res, next) => {
     try {
         const token = req.cookies['jwt'];

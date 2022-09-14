@@ -6,9 +6,19 @@ import photoRouter from './routes/photoRouter.js';
 import userRouter from './routes/userRouter.js';
 import cookieParser from 'cookie-parser';
 import { checkUser } from './middlewares/authMiddleware.js';
+import cors from 'cors';
+import { v2 as cloudinary } from 'cloudinary';
+import fileUpload from 'express-fileupload';
 
 // dotenv
 dotenv.config();
+
+
+cloudinary.config({
+    cloud_name: process.env.CLOUD_NAME,
+    api_key: process.env.CLOUD_API,
+    api_secret: process.env.CLOUD_SECRET,
+})
 
 // connection to db
 conn();
@@ -27,6 +37,8 @@ app.use(express.static('public'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use(cors());
+app.use(fileUpload({ useTempFiles: true }))
 
 // methods 
 app.use(checkUser)
