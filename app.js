@@ -13,7 +13,7 @@ import fileUpload from 'express-fileupload';
 // dotenv
 dotenv.config();
 
-
+// cloudinary
 cloudinary.config({
     cloud_name: process.env.CLOUD_NAME,
     api_key: process.env.CLOUD_API,
@@ -25,7 +25,7 @@ conn();
 
 // create app and port
 const app = express();
-const port = 3000;
+const port = 3001;
 
 // ejs template engine
 app.set('view engine', 'ejs');

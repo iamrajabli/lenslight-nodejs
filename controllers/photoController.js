@@ -6,11 +6,13 @@ import fs from 'fs';
 // POST
 export const createPhoto = async (req, res) => {
 
-    let result;
-    const file = req.files.image
+    try {
 
-    switch (file.mimetype) {
-        case 'image/png' || 'image/jpg' || 'image/jpeg':
+        let result;
+        const file = req.files.image
+        const type = file.mimetype;
+        
+        if (type !== 'image/png' || type !== 'image/jpg' || type !== 'image/jpeg') {
             result = await cloudinary.uploader.upload(
                 file.tempFilePath,
                 {
@@ -18,13 +20,11 @@ export const createPhoto = async (req, res) => {
                     folder: "lensligth_az"
                 }
             )
-            break;
-    }
+        }
 
 
-    fs.unlinkSync(file.tempFilePath);
+            fs.unlinkSync(file.tempFilePath);
 
-    try {
         await Photo.create({
             ...req.body,
             user: res.locals.user._id,

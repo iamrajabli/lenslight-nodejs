@@ -8,8 +8,9 @@ export const createUser = async (req, res) => {
     try {
         const user = await User.create(req.body);
         res.status(201).json({ user: user.createdAt });
-
+        console.log('success');
     } catch (error) {
+        console.log('error');
 
         const errApi = {};
 
@@ -92,4 +93,43 @@ export const getDashboardPage = async (req, res) => {
         link: 'dashboard',
         photos
     })
+}
+
+export const getUsersPage = async (req, res) => {
+    try {
+        const localUser = res.locals.user;
+        const users = localUser ?
+            await User.find({ _id: { $ne: localUser._id } })
+            : await User.find()
+        res
+            .status(200)
+            .render('users', {
+                link: 'users',
+                users
+            })
+
+    } catch (error) {
+        res
+            .status(404)
+            .json({
+                success: false,
+                error
+            })
+    }
+}
+
+export const getUserPage = async (req, res) => {
+    try {
+        const user = await User.find({ username: req.params.slug });
+        const photos = await Photo.find({ user: user[0]._id });
+
+        res.status(200).render('user', {
+            link: 'user',
+            user: user[0],
+            photos
+        })
+
+    } catch (error) {
+
+    }
 }
