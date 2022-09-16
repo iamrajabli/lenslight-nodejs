@@ -11,7 +11,7 @@ export const createPhoto = async (req, res) => {
         let result;
         const file = req.files.image
         const type = file.mimetype;
-        
+
         if (type !== 'image/png' || type !== 'image/jpg' || type !== 'image/jpeg') {
             result = await cloudinary.uploader.upload(
                 file.tempFilePath,
@@ -22,13 +22,13 @@ export const createPhoto = async (req, res) => {
             )
         }
 
-
-            fs.unlinkSync(file.tempFilePath);
+        fs.unlinkSync(file.tempFilePath);
 
         await Photo.create({
             ...req.body,
             user: res.locals.user._id,
-            url: result.secure_url
+            url: result.secure_url,
+            image_id: result.public_id
         });
 
 
@@ -72,7 +72,27 @@ export const getAPhoto = async (req, res) => {
                 success: false,
                 error
             })
-
     }
+}
 
+export const deleteAPhoto = async (req, res) => {
+
+    try {
+
+        const photo = await Photo.findById({ _id: req.params.id })
+        await cloudinary.uploader.destroy(photo.image_id)
+        await Photo.findOneAndRemove({ _id: req.params.id })
+
+        res
+            .status(200)
+            .redirect('/users/dashboard')
+
+    } catch (error) {
+        res
+            .status(404)
+            .json({
+                success: false,
+                error
+            })
+    }
 }

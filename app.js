@@ -9,6 +9,7 @@ import { checkUser } from './middlewares/authMiddleware.js';
 import cors from 'cors';
 import { v2 as cloudinary } from 'cloudinary';
 import fileUpload from 'express-fileupload';
+import methodOverride from 'method-override';
 
 // dotenv
 dotenv.config();
@@ -39,6 +40,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(cors());
 app.use(fileUpload({ useTempFiles: true }))
+app.use(methodOverride('_method', {
+    methods: ['GET', 'POST']
+}))
 
 // methods 
 app.use(checkUser)

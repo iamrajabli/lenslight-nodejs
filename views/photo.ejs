@@ -21,6 +21,7 @@
                   <h2><%= photo.name %></h2>
                   <p><%= photo.description %> </p>
                   <a class="read_more" href="about.html"><%= photo.username %></a>
+                  <a class="read_more mt-3" href="/photos/<%= photo._id %>?_method=DELETE">DELETE</a>
                </div>
             </div>
             <div class="col-md-6">
@@ -31,6 +32,8 @@
          </div>
       </div>
    </div>
+
+
    <!-- end about -->
    <!-- end footer -->
    <%- include("partials/_footer") %>

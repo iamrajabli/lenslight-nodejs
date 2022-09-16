@@ -1,5 +1,10 @@
 import express from 'express';
-import { createPhoto, getAllPhotos, getAPhoto } from '../controllers/photoController.js';
+import {
+    createPhoto,
+    deleteAPhoto,
+    getAllPhotos,
+    getAPhoto
+} from '../controllers/photoController.js';
 
 
 const router = express.Router();
@@ -11,6 +16,12 @@ router
 
 router
     .route('/photos/:id')
+    .delete(deleteAPhoto)
+
+router
+    .route('/photos/:id')
     .get(getAPhoto)
+
+
 
 export default router;
